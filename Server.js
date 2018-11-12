@@ -22,6 +22,7 @@ app.get('/availableProducts', (req, res) => {
         dbo.collection("Products").find({}).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
+            res.send(result);
             db.close();
         });
     });
