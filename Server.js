@@ -29,7 +29,7 @@ app.get('/availableProducts', (req, res) => {
 
 
 
-/*In this Method is using for define a running server*/
+/*In this Method is using for define a running server....*/
 app.listen(8080, function () {
     console.log("server running successfully in port:8080....")
 });
