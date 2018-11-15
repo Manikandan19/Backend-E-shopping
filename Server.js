@@ -19,7 +19,7 @@ app.get('/availableProducts', (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("E-shop");
-        dbo.collection("Products").find({}).toArray(function (err, result) {
+        dbo.collection("customers").find({}).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
             res.send(result);
