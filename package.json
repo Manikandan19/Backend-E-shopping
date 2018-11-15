@@ -4,6 +4,7 @@
   "description": "In this Backend is fully based on node js.",
   "main": "Server.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "create-readme": "^2.1.0",
     "express": "^4.16.4",
     "generate-readme": "^0.3.1",
