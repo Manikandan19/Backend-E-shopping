@@ -28,6 +28,21 @@ app.get('/availableProducts', (req, res) => {
     });
 });
 
+/*In this Method is using to set User Register details  */
+app.post('/register', bodyParser.json(), function (req, res) {
+  MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj =req.body;
+  dbo.collection("customers").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+res.send("Data inserted successfully");
+});
+
 
 
 /*In this Method is using for define a running server....*/
