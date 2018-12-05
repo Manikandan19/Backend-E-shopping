@@ -3,6 +3,7 @@ var url = "mongodb://localhost:27017/E-shop";
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var mongoose=require('mongoose');
 
 /*In this Method is using for overcome cross-origin problem */
 app.use(function (req, res, next) {
@@ -12,30 +13,48 @@ app.use(function (req, res, next) {
 });
 
 
-/*In this Method is using to  register products details to database */
-app.post('/products/registerDetails', bodyParser.json(), function (req, res) {
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db("E-shop");
-        var myobj = req.body;
-        dbo.collection("products").find({ "productID": myobj.productID }).toArray(function (err, result) {
-            if (err) throw err;
-            if (result == '') {
-                dbo.collection("products").insertOne(myobj, function (err, res) {
-                    if (err) throw err;
-                    console.log("1 document inserted");
-                    db.close();
-                });
-                res.send("ProductDetails inserted successfully");
-            }
-            else if (result[0].productID == myobj.productID) {
-                db.close();
-                res.send("ProductDetails Already Exist...")
-            }
-        });
-    });
+// /*In this Method is using to  register products details to database */
+// app.post('/products/registerDetails', bodyParser.json(), function (req, res) {
+//     MongoClient.connect(url, function (err, db) {
+//         if (err) throw err;
+//         var dbo = db.db("E-shop");
+//         var myobj = req.body;
+//         dbo.collection("products").find({ "productID": myobj.productID }).toArray(function (err, result) {
+//             if (err) throw err;
+//             if (result == '') {
+//                 dbo.collection("products").insertOne(myobj, function (err, res) {
+//                     if (err) throw err;
+//                     console.log("1 document inserted");
+//                     db.close();
+//                 });
+//                 res.send("ProductDetails inserted successfully");
+//             }
+//             else if (result[0].productID == myobj.productID) {
+//                 db.close();
+//                 res.send("ProductDetails Already Exist...")
+//             }
+//         });
+//     });
 
+// });
+
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('connected');
 });
+
+var kittySchema = new mongoose.Schema({
+    name: String
+  });
+
+  var Kitten = mongoose.model('customers', kittySchema);
+
+  var silence = new Kitten({ name: 'Silence' });
+console.log(silence.name); // 'Silence'
+
+silence.save();
 
 
 

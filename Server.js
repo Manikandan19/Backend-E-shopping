@@ -14,7 +14,6 @@ app.use(function (req, res, next) {
 
 
 /*In this Method is using to provide available products details from database */
-
 app.get('/availableProducts', (req, res) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
